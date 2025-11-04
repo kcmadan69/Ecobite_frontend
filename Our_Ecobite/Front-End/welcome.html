@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>EcoBite • Share. Save. Sustain.</title>
+  <link rel="stylesheet" href="../CSS/style.css"/>
+  <style>
+    /* one-line fallback if style.css fails to load */
+    :root{--eco-green:#1aa34a}
+  </style>
+</head>
+
+<body class="landing pro-landing">
+  <!-- ===== Top Bar (simple, clean) ===== -->
+  <header class="lp-nav">
+    <div class="lp-nav__brand">
+      <div class="lp-logo">🌿</div>
+      <span>EcoBite</span>
+    </div>
+    <nav class="lp-nav__links">
+      <a href="#about">Why EcoBite</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+      <a class="lp-btn ghost" href="login.html">Sign in</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="lp-hero">
+    <div class="lp-hero__copy reveal">
+      <h1><span class="emoji">🌿</span> Welcome to <strong>EcoBite</strong></h1>
+      <p>Reduce food waste, share extra meals, and connect with your campus community.
+         Join the movement toward a sustainable future — one bite at a time.</p>
+
+      <div class="lp-cta">
+        <button id="getStartedBtn" class="lp-btn primary">Get Started</button>
+        <a class="lp-btn ghost" href="#how">See how it works</a>
+      </div>
+    </div>
+
+    <!-- Parallax / subtle zoom image -->
+    <figure class="lp-hero__art">
+      <!-- Use your existing artwork -->
+      <img class="parallax-img" src="../images/hero-image.png" alt="EcoBite illustration"/>
+      <div class="lp-art-glow"></div>
+    </figure>
+  </section>
+
+  <!-- ===== WHY (cards) ===== -->
+  <section id="about" class="lp-section">
+    <h2 class="lp-h2 reveal">Why Choose EcoBite?</h2>
+    <div class="lp-cards">
+      <article class="lp-card reveal">
+        <img src="../images/save-food.png" alt="Save Food"/>
+        <h3>Save Food</h3>
+        <p>Share leftovers or claim available meals near you. Every portion shared
+           means less food wasted and more people fed.</p>
+      </article>
+
+      <article class="lp-card reveal delay-1">
+        <img src="../images/connect-community.png" alt="Community"/>
+        <h3>Connect with Community</h3>
+        <p>EcoBite connects students, cafés, and locals who care about sustainability
+           and community support.</p>
+      </article>
+
+      <article class="lp-card reveal delay-2">
+        <img src="../images/carbon-safe.png" alt="Carbon Footprint"/>
+        <h3>Reduce Carbon Footprint</h3>
+        <p>Every kilogram of food saved prevents CO₂ emissions. Together we create a
+           greener, cleaner campus.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how" class="lp-section alt">
+    <h2 class="lp-h2 reveal">How It Works</h2>
+    <div class="lp-steps">
+      <article class="lp-step reveal">
+        <img src="../images/post-food.png" alt="Post Food"/>
+        <div>
+          <h3><span class="step">1</span> Post Food</h3>
+          <p>Upload food that’s still safe to eat, set pickup details, and help someone nearby.</p>
+        </div>
+      </article>
+
+      <article class="lp-step reveal delay-1">
+        <img src="../images/claim-food.png" alt="Claim Food"/>
+        <div>
+          <h3><span class="step">2</span> Claim Food</h3>
+          <p>Browse nearby posts, filter by dietary needs, and claim in a tap.</p>
+        </div>
+      </article>
+
+      <article class="lp-step reveal delay-2">
+        <img src="../images/enjoy.png" alt="Enjoy"/>
+        <div>
+          <h3><span class="step">3</span> Enjoy & Impact</h3>
+          <p>Pick up, enjoy your meal, and celebrate a small but powerful environmental impact.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT / FOOTER ===== -->
+  <section id="contact" class="lp-contact lp-section">
+    <h2 class="lp-h2 reveal">Get in touch</h2>
+    <p class="lp-contact__lead reveal">Questions, ideas, or partnership requests?
+       We’d love to hear from you.</p>
+
+    <div class="lp-contact__grid">
+      <a class="lp-contact__card reveal" href="mailto:team.ecobite@example.com">
+        <div class="ico">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <p>team.ecobite@example.com</p>
+        </div>
+      </a>
+
+      <a class="lp-contact__card reveal delay-1" href="https://instagram.com" target="_blank" rel="noopener">
+        <div class="ico">📸</div>
+        <div>
+          <h4>Instagram</h4>
+          <p>@ecobite_official</p>
+        </div>
+      </a>
+
+      <a class="lp-contact__card reveal delay-2" href="login.html">
+        <div class="ico">🔐</div>
+        <div>
+          <h4>Already a member?</h4>
+          <p>Sign in to your account</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="lp-footer">
+    <p>© 2025 <strong>EcoBite</strong> — Share. Save. Sustain.</p>
+  </footer>
+
+  <!-- ===== Effects (no external libs) ===== -->
+  <script>
+    // CTA → login
+    document.getElementById("getStartedBtn").addEventListener("click", () => {
+      localStorage.setItem("eco_onboarded", "1");
+      location.href = "login.html";
+    });
+
+    // IntersectionObserver: reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    // Subtle parallax + zoom for hero art
+    const img = document.querySelector(".parallax-img");
+    const hero = document.querySelector(".lp-hero");
+    function parallax() {
+      const rect = hero.getBoundingClientRect();
+      const visible = Math.max(0, Math.min(1, 1 - rect.top / (rect.height || 1)));
+      // translate + scale between 1.0 → 1.06
+      const scale = 1 + visible * 0.06;
+      const ty = (visible * -18); // px up
+      img.style.transform = `translateY(${ty}px) scale(${scale})`;
+      requestAnimationFrame(parallax);
+    }
+    requestAnimationFrame(parallax);
+
+    // Smooth anchor scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+  </script>
+</body>
+</html>

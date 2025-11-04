@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>EcoBite • Food Feed</title>
+  <link rel="stylesheet" href="../CSS/style.css"/>
+
+  <script type="module">
+    import { renderFeed, navActivate } from "../js/app.js";
+
+    // From any Front-End page, the welcome is in the same folder:
+    const WELCOME_URL = "./welcome.html";
+
+    window.addEventListener("DOMContentLoaded", () => {
+      // 1) Inject sidebar
+      fetch("shared-sidebar.html")
+        .then(r => r.text())
+        .then(html => {
+          document.querySelector("[data-sidebar]").outerHTML = html;
+          navActivate("home");
+
+          // 2) Hook logout (after sidebar exists)
+          document.addEventListener("click", (e) => {
+            const btn = e.target.closest("[data-logout]");
+            if (!btn) return;
+            e.preventDefault();
+
+            try {
+              localStorage.removeItem("ecobite_user");
+              localStorage.removeItem("ecobite_token");
+              sessionStorage.clear();
+            } catch {}
+
+            // send to welcome (not login)
+            location.replace(WELCOME_URL);
+          });
+        })
+        // 3) Render the feed
+        .then(renderFeed);
+    });
+  </script>
+</head>
+
+<body class="dash-shell">
+  <div class="dash-layout">
+    <aside data-sidebar></aside>
+
+    <!-- main page -->
+    <main class="dash-main">
+      <!-- PAGE HEADER -->
+      <header class="page-head">
+        <div>
+          <h1 class="page-title">
+            <span class="page-title-icon">🌿</span>
+            Food Feed
+          </h1>
+          <p class="page-sub">Discover and share free food with your campus community 🌍</p>
+        </div>
+      </header>
+
+      <!-- TOP STATS ROW -->
+      <section class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-box">📦</div>
+          <div class="stat-body">
+            <div id="stAvailable" class="stat-value">0</div>
+            <div class="stat-label">Available Now</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-share">👥</div>
+          <div class="stat-body">
+            <div id="stShared" class="stat-value">0</div>
+            <div class="stat-label">Successfully Shared</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-trend">📈</div>
+          <div class="stat-body">
+            <div id="stTotal" class="stat-value">0</div>
+            <div class="stat-label">Total Posts</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon stat-icon-leaf">🍃</div>
+          <div class="stat-body">
+            <div id="stWaste" class="stat-value">0kg</div>
+            <div class="stat-label">Food Waste Prevented</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FILTER / TOOLBAR BAR -->
+      <section class="filter-block">
+        <!-- scope tabs -->
+        <div class="scope-tabs">
+          <button class="scope-tab is-active" data-scope="available">
+            <span class="scope-tab-ico">✨</span> Available
+          </button>
+          <button class="scope-tab" data-scope="claimed">
+            <span class="scope-tab-ico">🤝</span> Claimed
+          </button>
+          <button class="scope-tab" data-scope="expired">
+            <span class="scope-tab-ico">⏰</span> Expired
+          </button>
+        </div>
+
+        <!-- search bar -->
+        <div class="feed-search-wrap">
+          <span class="search-ico">🔍</span>
+          <input
+            id="search"
+            class="feed-search"
+            placeholder="Search for food (e.g., pizza, salad, cookies...)"
+          />
+        </div>
+
+        <!-- dropdown row -->
+        <div class="filter-row">
+          <div class="dropdownish">
+            <button class="dropdown-btn" id="typeBtn">
+              <span class="dd-left">📦 All Types</span>
+              <span class="dd-caret">▾</span>
+            </button>
+          </div>
+
+          <div class="dropdownish">
+            <button class="dropdown-btn" id="sortBtn">
+              <span class="dd-left">🕘 Newest First</span>
+              <span class="dd-caret">▾</span>
+            </button>
+          </div>
+
+          <div class="dropdownish">
+            <button class="dropdown-btn" id="dietBtn">
+              <span class="dd-left">⚙️ Dietary</span>
+              <span class="dd-caret">▾</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEED LIST -->
+      <section id="feed" class="feed-list"></section>
+
+      <!-- EMPTY STATE -->
+      <section id="emptyFeed" class="empty-state">
+        <div class="empty-icon">🍃</div>
+        <h2 class="empty-head">No posts yet</h2>
+        <p class="empty-desc">Be the first to share food and reduce waste!</p>
+      </section>
+    </main>
+  </div>
+
+  <!-- (Optional) purely visual tab toggle; business logic handled in app.js -->
+  <script>
+    document.addEventListener("click", e => {
+      const t = e.target.closest(".scope-tab");
+      if (!t) return;
+      document.querySelectorAll(".scope-tab").forEach(b => b.classList.remove("is-active"));
+      t.classList.add("is-active");
+    });
+  </script>
+</body>
+</html>

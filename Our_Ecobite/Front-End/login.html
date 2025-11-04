@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>EcoBite • Login</title>
+
+  <!-- Optional: keep your global styles loaded first -->
+  <link rel="stylesheet" href="../CSS/style.css"/>
+
+  <!-- Scoped styles to replicate the prototype exactly -->
+  <style>
+    :root{
+      --ink-900:#0e2230;     /* deep navy title */
+      --ink-700:#334155;     /* body text */
+      --panel:#ffffff;
+      --ring:#e7eef6;
+      --shadow-card: 0 40px 80px rgba(2,25,43,.12), 0 8px 24px rgba(2,25,43,.06);
+      --shadow-logo: 0 24px 40px rgba(27,94,32,.18), 0 6px 16px rgba(27,94,32,.10);
+      --green:#22a05a;
+      --btn:#0f1b27;         /* dark button */
+      --btn-hover:#0b1420;
+      --radius: 22px;
+    }
+
+    /* backdrop */
+    body.auth-surface{
+      margin:0;
+      min-height:100vh;
+      background: radial-gradient(1200px 600px at 50% -200px,#eef3f8 0%,#f6f9fc 40%, #f5f8fb 60%) fixed;
+      display:grid; place-items:center;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--ink-700);
+    }
+
+    /* card */
+    .auth-card{
+      position:relative;
+      width:min(640px,92vw);
+      background:var(--panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      padding: 78px 36px 28px;
+      border-top: 4px solid #dfeaf5;   /* subtle top rim like prototype */
+    }
+
+    /* floating logo coin */
+    .auth-logo{
+      position:absolute; left:50%; top:-38px; transform:translateX(-50%);
+      width:76px; height:76px; border-radius:50%;
+      background:#fff;
+      display:grid; place-items:center;
+      box-shadow: var(--shadow-logo);
+      border: 6px solid #f4f8ef;
+    }
+    .auth-logo .badge{
+      width:48px; height:48px; border-radius:50%;
+      background: radial-gradient(#eaf7ed,#cfeeda);
+      display:grid; place-items:center; font-size:26px; color:#157a39;
+      box-shadow: inset 0 0 0 2px #e3f4e7;
+    }
+
+    /* header */
+    .auth-title{
+      margin:22px 0 8px; text-align:center;
+      font-weight:800; color:var(--ink-900);
+      font-size: clamp(26px, 2.4vw + 10px, 34px);
+      letter-spacing:.2px;
+    }
+    .auth-sub{ text-align:center; margin:0 0 18px; color:#64748b; }
+
+    /* Google button */
+    .gbtn{
+      width:100%; display:flex; align-items:center; justify-content:center;
+      gap:10px; border:1px solid var(--ring); background:#fff;
+      padding:14px 16px; border-radius:12px; font-weight:600;
+    }
+    .gbtn img{ width:18px; height:18px }
+    .sep{
+      display:grid; grid-template-columns:1fr auto 1fr; gap:14px;
+      align-items:center; margin:18px 0;
+      color:#94a3b8; font-weight:600; font-size:12px; letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .sep:before,.sep:after{ content:""; height:1px; background:#e8edf5; display:block }
+
+    /* form */
+    .form{ display:grid; gap:10px; }
+    .label{ font-size:13px; font-weight:600; color:#334155; margin-bottom:4px }
+    .field{
+      position:relative;
+      border:1px solid #e6edf5; border-radius:12px; background:#fff;
+      box-shadow: 0 1px 0 rgba(2,25,43,.02);
+    }
+    .field input{
+      width:100%; border:0; outline:0; padding:14px 14px 14px 42px;
+      font-size:15px; background:transparent; color:var(--ink-900);
+      border-radius:12px;
+    }
+    .f-ico{
+      position:absolute; left:14px; top:50%; transform:translateY(-50%);
+      color:#94a3b8; font-size:16px;
+    }
+    .field:focus-within{ border-color:#cfe0f2; box-shadow:0 0 0 4px rgba(99,171,255,.12) }
+
+    /* primary button */
+    .btn{
+      margin-top:8px;
+      width:100%; border:0; outline:0; cursor:pointer;
+      padding:14px 16px; border-radius:12px; font-weight:800; color:#fff;
+      background:var(--btn);
+      transition:background .15s ease, transform .02s ease;
+    }
+    .btn:hover{ background:var(--btn-hover) }
+    .btn:active{ transform:translateY(1px) }
+
+    /* footer row */
+    .foot{
+      display:flex; justify-content:space-between; align-items:center;
+      margin-top:12px; font-size:14px;
+    }
+    .link{ color:#2563eb; text-decoration:none }
+    .link:hover{ text-decoration:underline }
+
+    /* constrain card height on very small screens */
+    @media (max-width:520px){
+      .auth-card{ padding:78px 18px 24px }
+    }
+  </style>
+</head>
+
+<body class="auth-surface">
+  <main class="auth-card">
+    <!-- Floating logo badge -->
+    <div class="auth-logo">
+      <div class="badge">🌿</div>
+    </div>
+
+    <!-- Head -->
+    <h1 class="auth-title">Welcome to EcoBite</h1>
+    <p class="auth-sub">Sign in to continue</p>
+
+    <!-- Google button (visual only) -->
+    <button class="gbtn" type="button">
+      <img alt="G" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"/>
+      Continue with Google
+    </button>
+
+    <div class="sep">OR</div>
+
+    <!-- Email form -->
+    <form class="form" onsubmit="event.preventDefault(); login()">
+      <label class="label" for="lemail">Email</label>
+      <div class="field">
+        <span class="f-ico">✉️</span>
+        <input id="lemail" type="email" required placeholder="you@example.com" value="student@campus.edu"/>
+      </div>
+
+      <label class="label" for="lpass">Password</label>
+      <div class="field">
+        <span class="f-ico">🔒</span>
+        <input id="lpass" type="password" required placeholder="••••••••" value="password"/>
+      </div>
+
+      <button class="btn" type="submit">Sign in</button>
+    </form>
+
+    <div class="foot">
+      <a class="link" href="#">Forgot password?</a>
+      <div>Need an account? <a class="link" href="signup.html">Sign up</a></div>
+    </div>
+  </main>
+
+  <script>
+    // Simple local login -> index
+    function login(){
+      const email = document.getElementById('lemail').value.trim();
+      localStorage.setItem('ecobite_user', JSON.stringify({name:'Student', email}));
+      location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
