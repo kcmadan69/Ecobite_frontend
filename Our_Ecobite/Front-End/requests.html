@@ -10,17 +10,20 @@
     window.addEventListener("DOMContentLoaded", renderRequests);
   </script>
 </head>
-<body>
-  <div class="app">
-    <aside class="sidebar"></aside>
+<body class="dash-shell">
+  <div class="dash-layout">
+    <aside data-sidebar></aside>
 
-    <main>
-      <div class="header">
+    <main class="dash-main">
+      <header class="page-head">
         <div>
-          <h2>My Requests</h2>
-          <p>Track your food claim requests</p>
+          <h1 class="page-title">
+            <span class="page-title-icon">🤝</span>
+            My Requests
+          </h1>
+          <p class="page-sub">Track your food claim requests</p>
         </div>
-      </div>
+      </header>
 
       <section class="panel">
         <h3>Pending Approval</h3>
@@ -35,8 +38,13 @@
   </div>
 
   <script>
-    fetch('shared-sidebar.html').then(r=>r.text()).then(h=>{document.querySelector('.sidebar').outerHTML=h})
-      .then(()=> import('../js/app.js').then(m => m.navActivate('requests')));
+    fetch('shared-sidebar.html')
+      .then(r => r.text())
+      .then(html => {
+        document.querySelector('[data-sidebar]').outerHTML = html;
+        import('../js/app.js').then(m => m.navActivate('requests'));
+      });
   </script>
 </body>
+
 </html>

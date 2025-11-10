@@ -10,11 +10,11 @@
     window.addEventListener("DOMContentLoaded", renderProfile);
   </script>
 </head>
-<body>
-  <div class="app">
-    <aside class="sidebar"></aside>
+<body class="dash-shell">
+  <div class="dash-layout">
+    <aside data-sidebar></aside>
 
-    <main>
+    <main class="dash-main">
       <section class="hero">
         <div style="display:flex; align-items:center; gap:14px">
           <div class="logo" style="width:70px;height:70px;border-radius:16px;font-size:28px;background:rgba(255,255,255,.2)">S</div>
@@ -90,8 +90,12 @@
   </div>
 
   <script>
-    fetch('shared-sidebar.html').then(r=>r.text()).then(h=>{document.querySelector('.sidebar').outerHTML=h})
-      .then(()=> import('../js/app.js').then(m => m.navActivate('profile')));
+    fetch('shared-sidebar.html')
+      .then(r => r.text())
+      .then(html => {
+        document.querySelector('[data-sidebar]').outerHTML = html;
+        import('../js/app.js').then(m => m.navActivate('profile'));
+      });
   </script>
 </body>
 </html>

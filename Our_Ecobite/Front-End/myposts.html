@@ -10,19 +10,23 @@
     window.addEventListener("DOMContentLoaded", renderMyPosts);
   </script>
 </head>
-<body>
-  <div class="app">
-    <aside class="sidebar"></aside>
+<body class="dash-shell">
+  <div class="dash-layout">
+    <aside data-sidebar></aside>
 
-    <main>
-      <div class="header">
+    <main class="dash-main">
+      <header class="page-head">
         <div>
-          <h2>My Posts</h2>
-          <p>Manage your food listings and approve claims</p>
+          <h1 class="page-title">
+            <span class="page-title-icon">📦</span>
+            My Posts
+          </h1>
+          <p class="page-sub">Manage your food listings and approve claims</p>
         </div>
-      </div>
+      </header>
 
       <section id="myPosts" class="grid"></section>
+
       <div class="empty" id="emptyMine" style="display:none">
         <div class="logo" style="width:64px;height:64px;font-size:26px;margin:0 auto 10px">📦</div>
         <h3>No posts yet</h3>
@@ -32,8 +36,13 @@
   </div>
 
   <script>
-    fetch('shared-sidebar.html').then(r=>r.text()).then(h=>{document.querySelector('.sidebar').outerHTML=h})
-      .then(()=> import('../js/app.js').then(m => m.navActivate('myposts')));
+    fetch('shared-sidebar.html')
+      .then(r => r.text())
+      .then(html => {
+        document.querySelector('[data-sidebar]').outerHTML = html;
+        import('../js/app.js').then(m => m.navActivate('myposts'));
+      });
   </script>
 </body>
+
 </html>
