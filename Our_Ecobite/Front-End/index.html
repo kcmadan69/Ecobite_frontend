@@ -9,34 +9,29 @@
   <script type="module">
     import { renderFeed, navActivate } from "../js/app.js";
 
-    // From any Front-End page, the welcome is in the same folder:
     const WELCOME_URL = "./welcome.html";
 
     window.addEventListener("DOMContentLoaded", () => {
-      // 1) Inject sidebar
+      // Inject sidebar
       fetch("shared-sidebar.html")
         .then(r => r.text())
         .then(html => {
           document.querySelector("[data-sidebar]").outerHTML = html;
           navActivate("home");
 
-          // 2) Hook logout (after sidebar exists)
+          // Logout
           document.addEventListener("click", (e) => {
             const btn = e.target.closest("[data-logout]");
             if (!btn) return;
             e.preventDefault();
-
             try {
               localStorage.removeItem("ecobite_user");
               localStorage.removeItem("ecobite_token");
               sessionStorage.clear();
             } catch {}
-
-            // send to welcome (not login)
             location.replace(WELCOME_URL);
           });
         })
-        // 3) Render the feed
         .then(renderFeed);
     });
   </script>
@@ -119,25 +114,34 @@
           />
         </div>
 
-        <!-- dropdown row -->
+        <!-- filter buttons row -->
         <div class="filter-row">
-          <div class="dropdownish">
+          <!-- TYPE DROPDOWN (menu is built by app.js) -->
+          <div class="dropdownish" data-dd="type">
             <button class="dropdown-btn" id="typeBtn">
-              <span class="dd-left">📦 All Types</span>
+              <span class="dd-left">
+                🍽 <span id="typeLabel">All Types</span>
+              </span>
               <span class="dd-caret">▾</span>
             </button>
           </div>
 
-          <div class="dropdownish">
+          <!-- SORT DROPDOWN (menu is built by app.js) -->
+          <div class="dropdownish" data-dd="sort">
             <button class="dropdown-btn" id="sortBtn">
-              <span class="dd-left">🕘 Newest First</span>
+              <span class="dd-left">
+                ⏱ <span id="sortLabel">Newest First</span>
+              </span>
               <span class="dd-caret">▾</span>
             </button>
           </div>
 
-          <div class="dropdownish">
+          <!-- DIETARY DROPDOWN (chip menu is built by app.js) -->
+          <div class="dropdownish" data-dd="diet">
             <button class="dropdown-btn" id="dietBtn">
-              <span class="dd-left">⚙️ Dietary</span>
+              <span class="dd-left">
+                ☰ <span id="dietLabel">Dietary</span>
+              </span>
               <span class="dd-caret">▾</span>
             </button>
           </div>
@@ -155,15 +159,5 @@
       </section>
     </main>
   </div>
-
-  <!-- (Optional) purely visual tab toggle; business logic handled in app.js -->
-  <script>
-    document.addEventListener("click", e => {
-      const t = e.target.closest(".scope-tab");
-      if (!t) return;
-      document.querySelectorAll(".scope-tab").forEach(b => b.classList.remove("is-active"));
-      t.classList.add("is-active");
-    });
-  </script>
 </body>
 </html>

@@ -1,3 +1,6 @@
+/* ======================
+   GLOBAL THEME (app)
+   ====================== */
 :root{
   --bg: #f5fbf6;
   --panel: #ffffff;
@@ -23,7 +26,7 @@ body{
              var(--bg);
 }
 
-/* App frame */
+/* App frame (old app layout) */
 .app{
   display:grid;
   grid-template-columns: 280px 1fr;
@@ -32,7 +35,7 @@ body{
   padding:24px;
 }
 
-/* Sidebar */
+/* Sidebar (old layout) */
 .sidebar-wrap{
   position:sticky; top:24px; height:calc(100vh - 48px);
   background:var(--panel);
@@ -69,7 +72,7 @@ body{
   background:#ecf7f0; border-radius:14px; padding:14px; color:#115e2c; font-size:14px;
 }
 
-/* Header / stats */
+/* Header / stats (old layout) */
 .header{
   display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:14px;
 }
@@ -85,7 +88,7 @@ body{
 .stat h4{margin:0 0 10px 0; font-weight:700; font-size:14px; color:#0b5a2b}
 .stat .big{font-size:26px; font-weight:800}
 
-/* Bar/filter */
+/* Bar/filter (old generic toolbar) */
 .toolbar{
   background:var(--panel); border-radius:16px; box-shadow:var(--shadow);
   padding:12px; display:flex; gap:10px; align-items:center; margin:16px 0;
@@ -102,7 +105,7 @@ body{
 }
 .tab.active{background:var(--brand); color:white; border-color:var(--brand)}
 
-/* Feed grid & cards */
+/* Feed grid & cards (old generic) */
 .grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px}
 .card{
   background:var(--panel); border-radius:16px; box-shadow:var(--shadow);
@@ -138,13 +141,13 @@ input, textarea, select{
 }
 textarea{min-height:110px; resize:vertical}
 
-/* Empty state */
+/* Empty state (generic) */
 .empty{
   background:var(--panel); border-radius:16px; box-shadow:var(--shadow);
   padding:34px; text-align:center; color:var(--muted)
 }
 
-/* Profile sections */
+/* Profile sections (old generic) */
 .hero{
   border-radius:20px; background:linear-gradient(160deg, var(--brand) , var(--brand-2)); color:white;
   padding:28px; margin-bottom:16px; box-shadow:var(--shadow)
@@ -156,7 +159,7 @@ textarea{min-height:110px; resize:vertical}
 /* Footer badge */
 .footer-note{font-size:12px; color:var(--muted); text-align:center; margin-top:8px}
 
-/* Responsive */
+/* Responsive (old layout) */
 @media (max-width:1100px){
   .grid{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
@@ -165,7 +168,8 @@ textarea{min-height:110px; resize:vertical}
   .app{grid-template-columns:1fr}
   .sidebar-wrap{position:static; height:auto}
 }
- /* ---------- Form polish (professional) ---------- */
+
+/* ---------- Form polish (professional) ---------- */
 .form { gap: 18px; }
 
 /* Labels */
@@ -259,8 +263,6 @@ label.chk input[type="checkbox"]{
 
 /* ================================
    EcoBite — Landing (Welcome) Page
-   Scope: body.landing …
-   Safe to append at end of style.css
    ================================ */
 
 /* --- Vars (fallbacks if your sheet doesn't have these) --- */
@@ -401,7 +403,8 @@ body.landing{
   .landing .hero{ flex-direction:column; text-align:center; gap:36px; }
   .landing .hero img{ max-width:92%; }
 }
-/* === LAYOUT SHELL === */
+
+/* === LAYOUT SHELL (Dashboard) === */
 .dash-shell {
   --bg-grad-top: #f7fff4;
   --bg-grad-bottom: #eefbea;
@@ -429,8 +432,7 @@ body.landing{
   min-height: 100vh;
 }
 
-/* === SIDEBAR (shared-sidebar.html already has internal markup like .sidebar etc.)
-   We just make sure it sits left fixed-width and matches vibe. ===*/
+/* === SIDEBAR used by shared-sidebar.html ===*/
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -644,107 +646,110 @@ body.landing{
   line-height: 1.3;
 }
 
-/* FILTER BAR */
+/* FILTER BAR CONTAINER (dashboard version) */
 .filter-block {
-  background: var(--panel-bg);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
-  padding: 1rem;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  row-gap: 1rem;
-  column-gap: 1rem;
-  margin-bottom: 1.5rem;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 16px 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.scope-tabs {
+/* --------- Tabs: Available / Claimed / Expired --------- */
+.scope-tabs{
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem;
-}
-.scope-tab {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  background: #ffffff;
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-main);
-  padding: .55rem .75rem;
-  cursor: pointer;
-}
-.scope-tab.is-active {
-  background: var(--pill-green-bg);
-  border-color: var(--pill-green-bg);
-  color: var(--pill-green-text);
-}
-.scope-tab-ico {
-  font-size: 14px;
-  line-height: 1;
+  gap: 8px;
 }
 
-.feed-search-wrap {
+.scope-tab{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  font-size: 14px;
+  font-weight: 600;
+  color: #065f46;
+  cursor: pointer;
+}
+
+.scope-tab.is-active{
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #ffffff;
+}
+
+.scope-tab-ico {
+  font-size: 14px;
+}
+
+/* --------- Search bar row --------- */
+.feed-search-wrap{
   display: flex;
   align-items: center;
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-sm);
-  background: #fff;
-  padding: .6rem .75rem;
+  border-radius: 999px;
+  border: 1px solid #bbf7d0;
+  background: #ffffff;
+  padding: 12px 16px;
   font-size: 14px;
-  min-width: 0;
+  box-shadow: none;
 }
-.search-ico {
-  margin-right: .5rem;
+
+.search-ico{
+  margin-right: 8px;
   font-size: 14px;
-  opacity: .7;
+  opacity: 0.7;
 }
-.feed-search {
+
+.feed-search{
   border: 0;
   outline: 0;
   flex: 1;
   font-size: 14px;
-  color: var(--text-main);
-  min-width: 0;
+  color: #0f172a;
   background: transparent;
 }
 
-/* second row of dropdowns sits under search on wrap */
-.filter-row {
-  grid-column: 2 / span 1;
+/* --------- Filter buttons row (All Types / Newest / Dietary) --------- */
+.filter-row{
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem;
+  gap: 10px;
 }
 
-/* dropdown-style buttons */
-.dropdownish .dropdown-btn {
+.dropdownish .dropdown-btn{
   display: inline-flex;
   align-items: center;
-  gap: .4rem;
-  border: 1px solid var(--panel-border);
-  background: #fff;
-  border-radius: var(--radius-sm);
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid #bbf7d0;
+  background: #ffffff;
   font-size: 14px;
-  padding: .6rem .75rem;
+  font-weight: 500;
+  color: #111827;
   cursor: pointer;
-  min-width: max-content;
-  line-height: 1.2;
-  color: var(--text-main);
 }
-.dropdownish .dropdown-btn:hover {
-  background: #f8fff4;
+
+.dropdownish .dropdown-btn:hover{
+  background: #f0fdf4;
 }
+
 .dd-left {
   display: inline-flex;
   align-items: center;
-  gap: .4rem;
+  gap: 4px;
 }
-.dd-caret {
+
+.dd-caret{
   font-size: 12px;
-  opacity: .6;
+  opacity: 0.6;
 }
 
 /* FEED CONTAINER */
@@ -755,9 +760,7 @@ body.landing{
   min-height: 160px;
 }
 
-/* (Each post card will reuse stat-card-ish style from JS later)
-
-/* EMPTY STATE */
+/* Empty state (dashboard feed) */
 .empty-state {
   text-align: center;
   background: transparent;
@@ -790,7 +793,7 @@ body.landing{
   line-height: 1.4;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE for dashboard shell */
 @media (max-width: 840px) {
   .dash-layout {
     flex-direction: column;
@@ -807,14 +810,9 @@ body.landing{
   .dash-main {
     padding: 1rem;
   }
-  .filter-block {
-    grid-template-columns: 1fr;
-  }
-  .filter-row {
-    grid-column: 1 / span 1;
-  }
 }
-/* ===== Base44-like visual polish ===== */
+
+/* ===== Base44-like visual polish for feed ===== */
 :root{
   --bg: #f6fbf6;
   --panel: #ffffff;
@@ -836,7 +834,7 @@ body{
 /* spacing & container inside <main> */
 main{ padding: 28px 32px 64px; }
 
-/* header */
+/* header typography for Food Feed */
 .page-title{
   font-size: 44px;
   line-height: 1.1;
@@ -850,7 +848,7 @@ main{ padding: 28px 32px 64px; }
 }
 .tw-emoji{ filter: saturate(110%); }
 
-/* KPI cards */
+/* KPI cards (older version, still used some places) */
 .kpi-grid{
   margin-top: 20px;
   display: grid;
@@ -881,66 +879,7 @@ main{ padding: 28px 32px 64px; }
   color: var(--muted); font-size: 13px; margin-left: 60px; margin-top: 2px;
 }
 
-/* Toolbar */
-.feed-toolbar{ margin-top: 18px; }
-.tabs{
-  display:flex; gap:10px; margin-bottom: 12px; flex-wrap: wrap;
-}
-.tab{
-  appearance: none; border: 1px solid var(--subtle); background: var(--panel);
-  padding: 10px 14px; border-radius: 999px; font-weight: 600; color: var(--text);
-  box-shadow: 0 1px 0 rgba(0,0,0,.02);
-  transition: background .15s ease, box-shadow .15s ease, border-color .15s ease;
-  display:flex; align-items:center; gap:8px;
-}
-.tab:hover{ background:#f7fcf8; }
-.tab.active{
-  background: #e8f8ed; border-color: #cfeedd; color: var(--green-600);
-  box-shadow: inset 0 0 0 1px rgba(35,164,85,.15), var(--shadow);
-}
-.tab-ic{ font-size: 16px; }
-
-.search-wrap{
-  position: relative; width: 100%;
-  background: var(--panel); border:1px solid var(--subtle);
-  border-radius: 12px; box-shadow: var(--shadow);
-  margin-bottom: 12px;
-}
-.search-ic{
-  position:absolute; left:14px; top:50%; transform: translateY(-50%);
-  color: var(--muted); font-size: 14px;
-}
-.input.search{
-  width: 100%; padding: 14px 16px 14px 38px; border: 0; outline: none;
-  background: transparent; border-radius: 12px; font-size: 14px; color: var(--text);
-}
-
-.filters-row{
-  display:flex; gap:10px; flex-wrap: wrap;
-}
-.select-wrap{
-  position: relative; display:inline-flex;
-  background: var(--panel); border:1px solid var(--subtle);
-  border-radius: 12px; box-shadow: var(--shadow);
-}
-.select{
-  appearance:none; border:0; background: transparent; color: var(--text);
-  padding: 12px 36px 12px 14px; border-radius: 12px; font-size: 14px;
-}
-.sel-caret{
-  position:absolute; right:12px; top:50%; transform: translateY(-50%);
-  color: var(--muted); font-size: 12px; pointer-events:none;
-}
-.chip{
-  display:inline-flex; align-items:center; gap:8px;
-  border:1px solid var(--subtle); background: var(--panel);
-  color: var(--text); border-radius: 12px; padding: 12px 14px; font-weight:600;
-  box-shadow: var(--shadow);
-}
-.chip:hover{ background:#f7fcf8; }
-.chip-ic{ font-size: 14px; }
-
-/* Empty state */
+/* Empty feed generic */
 .empty-feed{
   text-align:center; padding: 60px 0 40px; color: var(--muted);
 }
@@ -956,7 +895,7 @@ main{ padding: 28px 32px 64px; }
 /* footer microcopy */
 .footer-note{ color: var(--muted); font-size: 12px; margin-top: 18px; }
 
-/* Sidebar quick polish so it matches */
+/* Sidebar quick polish */
 .sidebar .brand h1, .sidebar .title h1{ font-size: 20px; }
 .sidebar .nav a{
   border-radius: 12px; padding: 10px 12px;
@@ -965,20 +904,14 @@ main{ padding: 28px 32px 64px; }
   background: #e8f8ed; color: var(--green-600);
 }
 
-/* Cards (feed items) still use your existing styles; just add a little lift */
-.card{
-  border:1px solid var(--subtle); border-radius: var(--radius);
-  box-shadow: var(--shadow); background: var(--panel);
-}
-
-/* 3-column responsive grid */
+/* 3-column responsive grid for feed cards */
 .feed-grid{
   display:grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
   gap:16px;
 }
 
-/* card shell */
+/* card shell for posts */
 .post-card{
   background: var(--panel, #fff);
   border: 1px solid var(--subtle, #e9f6ea);
@@ -1026,7 +959,7 @@ main{ padding: 28px 32px 64px; }
   box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
 
-/* pills & chips */
+/* pills & chips inside cards */
 .pill{
   display:inline-flex; align-items:center; gap:6px;
   font-size:12px; padding:6px 10px; border-radius:999px;
@@ -1048,7 +981,7 @@ main{ padding: 28px 32px 64px; }
   right: 18px; top: 14px;
 }
 
-/* responsive */
+/* responsive breakpoints for cards */
 @media (max-width: 1250px){
   .feed-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
@@ -1057,6 +990,7 @@ main{ padding: 28px 32px 64px; }
   .post-card{ grid-template-columns: 1fr; }
   .post-media{ height: 200px; }
 }
+
 /* ================================
    EcoBite — Landing Pro Polish
    ================================ */
@@ -1138,115 +1072,447 @@ main{ padding: 28px 32px 64px; }
 .reveal{opacity:0; transform:translateY(18px) scale(.98); transition:opacity .6s ease, transform .6s ease}
 .reveal.in{opacity:1; transform:none}
 .reveal.delay-1{transition-delay:.10s}
-.reveal.delay-2{transition-delay:.20s}
+.reveal.delay-2{transition-delay: .20s;}
 
 /* responsive */
 @media (max-width: 980px){
   .lp-hero{grid-template-columns:1fr; gap:26px; padding:6vh 6vw 8vh}
   .lp-nav{padding:12px 4vw}
 }
+
 /* Only apply the dashboard background to dashboard pages */
 body.dash-shell {
   background: radial-gradient(circle at 20% 0%, #f7fff4 0%, #eefbea 80%);
   color: var(--text-main);
 }
-/* =====================================================
-   EcoBite — Food Feed filter bar polish (Home page)
-   Makes the tabs + search + filter chips match the new UI
-   ===================================================== */
 
-/* Make the container invisible + stacked vertically */
-.filter-block{
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  padding: 0;
-  margin: 16px 0 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* ============================
+   Feed dropdown menus (Home)
+   these match app.js
+   ============================ */
+
+.dropdownish {
+  position: relative;
 }
 
-/* --------- Tabs: Available / Claimed / Expired --------- */
-.scope-tabs{
+/* The popover menu container */
+.filter-menu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  min-width: 240px;
+  padding: 6px 0;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #dcead7;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+  z-index: 50;
+  display: none;  /* JS toggles this */
+}
+
+/* Individual menu rows (Type / Sort / Diet items) */
+.filter-menu-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: #0f2f14;
+  text-align: left;
+  cursor: pointer;
+}
+
+.filter-menu-item:hover {
+  background: #f5fbf6;
+}
+
+/* ✓ check mark on right */
+.fm-check {
+  margin-left: auto;
+  font-size: 13px;
+  color: #1a7f2b;
+  opacity: 0;
+}
+
+.filter-menu-item.is-selected .fm-check {
+  opacity: 1;
+}
+
+/* Make menu width sane on small screens */
+@media (max-width: 720px) {
+  .filter-menu {
+    min-width: 220px;
+    max-width: min(360px, 90vw);
+  }
+}
+
+/* =====================================
+   PROFILE PAGE (dashboard style)
+   ===================================== */
+
+.profile-hero-card {
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1bb653, #0f8b39);
+  color: #ffffff;
+  padding: 24px 26px 18px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+
+.profile-hero-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.profile-name {
+  margin: 0 0 4px;
+  font-size: 24px;
+}
+
+.profile-email {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.profile-badge {
+  margin-left: auto;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* About card inside header */
+.profile-about-row {
+  margin-top: 18px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 18px;
+  color: #1b2b1b;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.profile-about-row h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.profile-about-row p {
+  margin: 0;
+  font-size: 14px;
+  color: #566356;
+}
+
+.profile-edit-btn {
+  margin-left: auto;
+  border-radius: 999px;
+  border: 1px solid #e2f0e4;
+  padding: 8px 14px;
+  background: #f7fcf9;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.profile-edit-btn:hover {
+  background: #eef9f1;
+}
+
+/* KPI row under header */
+.profile-kpi-row {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.profile-kpi-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e3f0e4;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-kpi-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #f0fbf4;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.profile-kpi-label {
+  font-size: 13px;
+  color: #6a7b6a;
+}
+
+.profile-kpi-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #12371a;
+}
+
+/* Impact card */
+.profile-impact-card {
+  margin-top: 18px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1bab4c, #0d8b39);
+  color: #ffffff;
+  padding: 20px 22px 16px;
+  box-shadow: var(--shadow);
+}
+
+.profile-impact-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.profile-impact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: center;
+}
+
+.profile-impact-metric {
+  min-width: 160px;
+}
+
+.profile-impact-label {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-bottom: 2px;
+}
+
+.profile-impact-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.profile-impact-quote {
+  margin: 10px 0 0;
+  font-size: 14px;
+  opacity: 0.92;
+}
+
+/* Responsive tweaks for profile */
+@media (max-width: 900px) {
+  .profile-kpi-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-kpi-row {
+    grid-template-columns: 1fr;
+  }
+  .profile-hero-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-badge {
+    margin-left: 0;
+  }
+}
+/* Wider menu for dietary chips */
+.dropdown-menu-wide {
+  min-width: 420px;
+}
+
+@media (max-width: 720px) {
+  .dropdown-menu-wide {
+    min-width: 220px;
+    max-width: min(360px, 90vw);
+  }
+}
+
+/* Heading inside diet menu */
+.dd-heading {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px 4px;
+  color: #0f2f14;
+}
+
+/* Chip grid for dietary filters */
+.diet-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  padding: 8px 12px 12px 12px;
 }
 
-.scope-tab{
+/* Individual diet chip */
+.diet-chip {
+  border-radius: 999px;
+  border: 1px solid #dcead7;
+  background: #ffffff;
+  padding: 7px 12px;
+  font-size: 14px;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 18px;
-  border-radius: 999px;
-  border: 1px solid #bbf7d0;          /* soft green ring */
-  background: #f0fdf4;                 /* pale green fill */
+}
+
+.diet-chip:hover {
+  background: #f5fbf6;
+}
+
+.diet-chip.is-on {
+  background: #e6f8ec;
+  border-color: #bfe9c9;
+  color: #117839;
+  font-weight: 600;
+}
+
+/* =========================
+   Auth pages (login + forgot)
+   ========================= */
+
+.auth-shell{
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(1200px 600px at 70% -10%, #eaf9f0, transparent),
+    radial-gradient(900px 500px at -10% 110%, #ecf9ef, transparent),
+    #f5fbf6;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #1f2a1f;
+}
+
+.auth-main{
+  width: 100%;
+  max-width: 480px;
+  padding: 24px;
+}
+
+.auth-card{
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px 26px 22px;
+  box-shadow: 0 18px 40px rgba(15, 118, 58, 0.15);
+  border: 1px solid #e2f3e6;
+}
+
+.auth-head{
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.auth-logo{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+.auth-head h1{
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+.auth-head p{
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.auth-form{
+  display: grid;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.auth-form label{
   font-size: 14px;
   font-weight: 600;
-  color: #065f46;                       /* dark green text */
-  cursor: pointer;
+  color: #374151;
 }
 
-.scope-tab.is-active{
-  background: #16a34a;                 /* solid green pill */
+.auth-form input{
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid #d1e7d6;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.auth-form input:focus{
   border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(34,197,94,.25);
+}
+
+.auth-btn-primary{
+  margin-top: 6px;
+  padding: 11px 14px;
+  border-radius: 999px;
+  border: none;
+  background: #111827;
   color: #ffffff;
-}
-
-/* --------- Search bar row --------- */
-.feed-search-wrap{
-  display: flex;
-  align-items: center;
-  border-radius: 999px;
-  border: 1px solid #bbf7d0;
-  background: #ffffff;
-  padding: 12px 16px;
-  font-size: 14px;
-  box-shadow: none;
-}
-
-.search-ico{
-  margin-right: 8px;
-  font-size: 14px;
-  opacity: 0.7;
-}
-
-.feed-search{
-  border: 0;
-  outline: 0;
-  flex: 1;
-  font-size: 14px;
-  color: #0f172a;
-  background: transparent;
-}
-
-/* --------- Filter buttons row (All Types / Newest / Dietary) --------- */
-.filter-row{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.dropdownish .dropdown-btn{
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 1px solid #bbf7d0;
-  background: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  color: #111827;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.dropdownish .dropdown-btn:hover{
-  background: #f0fdf4;
+.auth-btn-primary:hover{
+  background: #020617;
 }
 
-.dd-caret{
-  font-size: 12px;
-  opacity: 0.6;
+.auth-message{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #047857;
 }
+
+.auth-footer{
+  margin-top: 14px;
+  text-align: right;
+}
+
+.auth-link{
+  font-size: 14px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.auth-link:hover{
+  text-decoration: underline;
+}
+

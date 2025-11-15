@@ -5,73 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>EcoBite • Profile</title>
   <link rel="stylesheet" href="../CSS/style.css"/>
+
   <script type="module">
-    import { renderProfile } from "../js/app.js";
-    window.addEventListener("DOMContentLoaded", renderProfile);
+    import { renderProfile, navActivate } from "../js/app.js";
+
+    const WELCOME_URL = "./welcome.html";
+
+    window.addEventListener("DOMContentLoaded", () => {
+      // Inject shared sidebar
+      fetch("shared-sidebar.html")
+        .then(r => r.text())
+        .then(html => {
+          document.querySelector("[data-sidebar]").outerHTML = html;
+          navActivate("profile");
+
+          // logout
+          document.addEventListener("click", (e) => {
+            const btn = e.target.closest("[data-logout]");
+            if (!btn) return;
+            e.preventDefault();
+
+            try {
+              localStorage.removeItem("ecobite_user");
+              localStorage.removeItem("ecobite_token");
+              sessionStorage.clear();
+            } catch {}
+
+            location.replace(WELCOME_URL);
+          });
+        })
+        .then(renderProfile);
+    });
   </script>
 </head>
+
 <body class="dash-shell">
   <div class="dash-layout">
     <aside data-sidebar></aside>
 
     <main class="dash-main">
-      <section class="hero">
-        <div style="display:flex; align-items:center; gap:14px">
-          <div class="logo" style="width:70px;height:70px;border-radius:16px;font-size:28px;background:rgba(255,255,255,.2)">S</div>
+      <!-- PROFILE HEADER / COVER -->
+      <section class="profile-hero-card">
+        <div class="profile-hero-main">
+          <div class="profile-avatar" id="pfInitial">S</div>
           <div>
-            <h2 id="pfName" style="margin:0">Eco Member</h2>
-            <div id="pfEmail" style="opacity:.9">you@campus.edu</div>
+            <h2 class="profile-name" id="pfName">Eco Member</h2>
+            <div class="profile-email" id="pfEmail">you@campus.edu</div>
           </div>
-          <span class="badge" style="margin-left:auto;background:rgba(255,255,255,.18);color:white;border-color:transparent">🌱 Eco Member</span>
+          <span class="profile-badge">🌱 Eco Member</span>
         </div>
 
-        <div class="kpis" style="margin-top:16px">
-          <div class="kpi"><div class="n" id="kPosts">0</div><div>Posts Shared</div></div>
-          <div class="kpi"><div class="n" id="kFed">0</div><div>People Fed</div></div>
-          <div class="kpi"><div class="n" id="kSaved">0.0kg</div><div>Food Saved</div></div>
-          <div class="kpi"><div class="n" id="kStreak">0 days</div><div>Current Streak</div></div>
+        <div class="profile-about-row">
+          <div>
+            <h3>About Me</h3>
+            <p>
+              Share a bit about yourself and your sustainability journey! 🌍
+            </p>
+          </div>
+          <button type="button" class="profile-edit-btn">
+            ✏ Edit
+          </button>
         </div>
       </section>
 
-      <section class="panel" style="background:linear-gradient(160deg,#22a24e,#2ec46a); color:white">
-        <div style="display:flex; align-items:center; gap:20px">
-          <div class="logo" style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.2)">🌍</div>
-          <div>
-            <h3 style="margin:0 0 4px 0">Your Environmental Impact</h3>
-            <div style="display:flex; gap:24px">
-              <div><strong id="impactCO2">0.0 kg</strong><div>CO₂ emissions prevented</div></div>
-              <div><strong id="impactMeals">0</strong><div>Meals provided</div></div>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:10px; opacity:.9"><em>“Every meal shared is a step towards a sustainable future”</em> ✨</div>
+      <!-- TOP STATS (4 CARDS) -->
+      <section class="profile-kpi-row">
+        <article class="profile-kpi-card">
+          <div class="profile-kpi-icon">📦</div>
+          <div class="profile-kpi-label">Posts Shared</div>
+          <div class="profile-kpi-value" id="kPosts">0</div>
+        </article>
+
+        <article class="profile-kpi-card">
+          <div class="profile-kpi-icon">👥</div>
+          <div class="profile-kpi-label">People Fed</div>
+          <div class="profile-kpi-value" id="kFed">0</div>
+        </article>
+
+        <article class="profile-kpi-card">
+          <div class="profile-kpi-icon">🥗</div>
+          <div class="profile-kpi-label">Food Saved</div>
+          <div class="profile-kpi-value" id="kSaved">0.0kg</div>
+        </article>
+
+        <article class="profile-kpi-card">
+          <div class="profile-kpi-icon">🔥</div>
+          <div class="profile-kpi-label">Current Streak</div>
+          <div class="profile-kpi-value" id="kStreak">0 days</div>
+        </article>
       </section>
 
-      <section class="row" style="gap:16px">
-        <div class="panel">
+      <!-- IMPACT CARD -->
+      <section class="profile-impact-card">
+        <h3 class="profile-impact-title">Your Environmental Impact</h3>
+
+        <div class="profile-impact-row">
+          <div class="profile-impact-metric">
+            <div class="profile-impact-label">CO₂ emissions prevented</div>
+            <div class="profile-impact-value" id="impactCO2">0.0 kg</div>
+          </div>
+          <div class="profile-impact-metric">
+            <div class="profile-impact-label">Meals provided</div>
+            <div class="profile-impact-value" id="impactMeals">0</div>
+          </div>
+        </div>
+
+        <p class="profile-impact-quote">
+          <em>“Every meal shared is a step towards a sustainable future”</em> ✨
+        </p>
+      </section>
+
+      <!-- LEVEL + RECENT ACTIVITY -->
+      <section class="row" style="gap:16px; margin-top:18px">
+        <div class="panel" style="flex:1">
           <h3>Your Level</h3>
           <div style="display:flex; align-items:center; gap:12px; margin:8px 0 16px">
             <div class="logo" style="width:52px;height:52px;border-radius:14px;background:#eaf8f0">🌱</div>
             <div>
-              <strong>Seedling</strong><span class="badge" style="margin-left:8px">Level 1</span><br/>
+              <strong>Seedling</strong>
+              <span class="badge" style="margin-left:8px">Level 1</span><br/>
               <small id="levelPts">0 total points</small>
             </div>
           </div>
           <div style="background:#f1f7f3; border:1px solid #e6efe8; border-radius:12px; height:10px; overflow:hidden">
             <div id="levelBar" style="height:100%; width:0%; background:linear-gradient(90deg, #1ca44a, #2fb36b)"></div>
           </div>
-          <div style="display:flex; gap:8px; margin-top:12px; color:#6a7b6a; font-size:14px">
-            <div>+10 Share food</div><div>+20 Successful claim (your food gets taken)</div><div>+5 Claim food</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; color:#6a7b6a; font-size:14px">
+            <div>+10 Share food</div>
+            <div>+20 Successful claim (your food gets taken)</div>
+            <div>+5 Claim food</div>
           </div>
         </div>
 
-        <div class="panel">
+        <div class="panel" style="flex:1">
           <h3>Recent Activity</h3>
           <div id="pfActivity" class="grid" style="margin-top:10px"></div>
         </div>
       </section>
 
-      <section class="panel" style="margin-top:16px">
+      <!-- ACHIEVEMENTS -->
+      <section class="panel" style="margin-top:18px">
         <h3>Achievements</h3>
         <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:10px">
           <div class="empty">First Share</div>
@@ -88,14 +161,5 @@
       </section>
     </main>
   </div>
-
-  <script>
-    fetch('shared-sidebar.html')
-      .then(r => r.text())
-      .then(html => {
-        document.querySelector('[data-sidebar]').outerHTML = html;
-        import('../js/app.js').then(m => m.navActivate('profile'));
-      });
-  </script>
 </body>
 </html>
